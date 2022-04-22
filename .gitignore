@@ -1,0 +1,9 @@
+autogen/
+build/
+config/
+gecko_sdk_*/
+*.slps
+*.Makefile
+*.emProject
+*.project.mak
+*.pintool

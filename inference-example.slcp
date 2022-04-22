@@ -1,0 +1,41 @@
+# Silicon Labs Project Configuration Tools: slcp, v0, Component selection file.
+project_name: inference-example
+label: inference-example
+description: |
+  Standalone inference example for Silabs targets based on Gecko SDK 4
+category: Example|Standalone Inference
+package: platform
+quality: production
+source:
+- {path: src/main.cpp, folder: src}
+- {path: src/app.cpp, folder: src}
+include:
+- path: src
+  file_list:
+  - {path: app.h, folder: src}
+sdk: {id: gecko_sdk, version: 4.0.2}
+toolchain_settings:
+- {value: -Wno-unused-parameter, option: gcc_compiler_option}
+- {value: -Werror=return-type, option: gcc_compiler_option}
+component:
+- {id: stdio}
+- {id: iostream_recommended_stream}
+- {id: printf}
+- {id: toolchain_gcc}
+- {id: emlib_system}
+- {id: component_catalog}
+- {id: custom_edge_impulse_library}
+- {id: sl_system}
+configuration:
+- {name: SL_STACK_SIZE, value: '8192'}
+- {name: SL_HEAP_SIZE, value: '102400'}
+- condition: [iostream_usart]
+  name: SL_BOARD_ENABLE_VCOM
+  value: '1'
+- condition: [iostream_usart]
+  name: SL_IOSTREAM_USART_VCOM_CONVERT_BY_DEFAULT_LF_TO_CRLF
+  value: '1'
+ui_hints: {}
+component_path:
+- {path: ei-model}
+
