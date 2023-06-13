@@ -1,0 +1,47 @@
+name: Test Build
+
+on:
+  push:
+    branches:
+      - '*'
+    # schedule:
+    #   - cron: '25 10 * * MON'
+
+jobs:
+  build:
+    name: Example Build
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout the rpeository
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build the Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        load: true
+        tags: build-silabs
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Build and deploy EI Model
+      uses: edgeimpulse/build-deploy@v1
+      id: build-deploy
+      with:
+        project_id: ${{ secrets.PROJECT_ID }}
+        api_key: ${{ secrets.API_KEY }}
+        deployment_type: 'slcc'
+
+    - name: Extract the EI Model
+      run: |
+        unzip -q "${{ steps.build-deploy.outputs.deployment_file_name }}" -d ei-model
+        rm -rf "${{ steps.build-deploy.outputs.deployment_file_name }}"
+
+    - name: Build test app for BRD4166A
+      run: |
+        docker run --rm -v $PWD:/app build-silabs slc generate inference-example.slcp -cp -np --toolchain=gcc --output-type=makefile --with=brd4166a
+        docker run --rm -v $PWD:/app build-silabs make -f inference-example.Makefile -j
