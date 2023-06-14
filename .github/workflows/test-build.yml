@@ -44,9 +44,9 @@ jobs:
     - name: Build test app for BRD4166A
       run: |
         docker run --rm -v $PWD:/app build-silabs slc generate inference-example.slcp -d build_brd4166a -cp --toolchain=gcc --output-type=makefile --with=brd4166a
-        docker run --rm -v $PWD:/app build-silabs sh -c "cd build_brd4166b && make -f inference-example.Makefile -j"
+        docker run --rm -v $PWD:/app build-silabsmake -C build_brd4166b -f inference-example.Makefile -j
 
     - name: Build test app for BRD2601B
       run: |
         docker run --rm -v $PWD:/app build-silabs slc generate inference-example.slcp -d build_brd2601b -cp --require-clean-project --toolchain=gcc --output-type=makefile --with=brd2601b
-        docker run --rm -v $PWD:/app build-silabs sh -c "cd build_brd2601b && make -f inference-example.Makefile -j"
+        docker run --rm -v $PWD:/app build-silabsmake -C build_brd2601b -f inference-example.Makefile -j
