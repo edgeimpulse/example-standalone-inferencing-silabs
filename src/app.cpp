@@ -22,7 +22,7 @@ static const float features[] = {
     // Copy raw features here (e.g. from the 'Model testing' page)
 };
 
-static signal_t signal; // Wrapper for raw input buffer
+static signal_t sig; // Wrapper for raw input buffer
 static size_t buf_len;
 
 // Callback: fill a section of the out_ptr buffer when requested
@@ -52,8 +52,8 @@ void app_init(void)
     }
 
     // Assign callback function to fill buffer used for preprocessing/inference
-    signal.total_length = EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE;
-    signal.get_data = &get_signal_data;
+    sig.total_length = EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE;
+    sig.get_data = &get_signal_data;
 }
 
 /***************************************************************************//**
@@ -65,7 +65,7 @@ void app_process_action(void)
     ei_impulse_result_t result; // Used to store inference output
 
     // Perform DSP pre-processing and inference
-    res = run_classifier(&signal, &result, false);
+    res = run_classifier(&sig, &result, false);
 
     // Print return code and how long it took to perform inference
     printf("run_classifier returned: %d\r\n", res);
