@@ -1,3 +1,5 @@
+[![Test Build](https://github.com/edgeimpulse/example-standalone-inferencing-silabs/actions/workflows/test-build.yml/badge.svg?branch=main)](https://github.com/edgeimpulse/example-standalone-inferencing-silabs/actions/workflows/test-build.yml)
+
 # Edge Impulse Example: standalone inferencing (Silabs Gecko SDK 4.x)
 
 This builds and runs an exported impulse locally on your machine. See the documentation at Deploy your model as a SLCC component.
