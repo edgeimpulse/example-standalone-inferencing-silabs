@@ -11,6 +11,10 @@ RUN add-apt-repository 'deb https://apt.corretto.aws stable main'
 RUN apt update
 RUN apt install -y java-17-amazon-corretto-jdk
 
+# Install git LFS to get a full Gecko SDK
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+RUN apt install -y git-lfs
+
 # GCC ARM
 RUN cd / && \
     wget https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/9-2019q4/RC2.1/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2 -q && \
@@ -18,16 +22,16 @@ RUN cd / && \
     echo "PATH=$PATH:/gcc-arm-none-eabi-9-2019-q4-major/bin" >> ~/.bashrc
 
 # Gecko SDK
+WORKDIR /
 RUN GECKO_COMMIT=db4e90767174d467158d4c5249ba5be6ab9d9e83 && \
-    cd / && \
-    wget https://github.com/edgeimpulse/gecko_sdk/archive/${GECKO_COMMIT}.zip -O gecko.zip -q && \
-    unzip -q gecko.zip && \
-    mv gecko_sdk-${GECKO_COMMIT}/ gecko_sdk/
+    git clone https://github.com/edgeimpulse/gecko_sdk && \
+    cd gecko_sdk && \
+    git checkout ${GECKO_COMMIT}
 
 # SLC-CLI tool
-RUN cd / && \
-    wget https://cdn.edgeimpulse.com/build-system/slc_cli_linux.zip -q && \
-    unzip -q slc_cli_linux_xg24.zip && \
+WORKDIR /
+RUN wget https://cdn.edgeimpulse.com/build-system/slc_cli_linux.zip -q && \
+    unzip -q slc_cli_linux.zip && \
     cd slc_cli && \
     pip3 install --user -r requirements.txt && \
     chmod +x slc

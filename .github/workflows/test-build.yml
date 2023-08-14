@@ -1,9 +1,11 @@
 name: Test Build
 
 on:
-  schedule:
-    - cron: '25 10 * * MON'
-
+  # schedule:
+  #   - cron: '25 10 * * MON'
+  push:
+    branches:
+      - main
 jobs:
   build:
     name: Example Build
@@ -35,7 +37,7 @@ jobs:
 
     - name: Extract the EI Model
       run: |
-        unzip -q "${{ steps.build-deploy.outputs.deployment_file_name }}" -d ei-model
+        unzip -q "${{ steps.build-deploy.outputs.deployment_file_name }}" -d extension
         rm -rf "${{ steps.build-deploy.outputs.deployment_file_name }}"
 
     - name: Build test app for BRD4166A
