@@ -7,7 +7,7 @@ This builds and runs an exported impulse locally on your machine. See the docume
 ## Basic steps
 
 1. Export SLCC component form Studio
-1. Extract content of the exported component into `ei-model` directory.
+1. Extract content of the exported component into `extension` directory.
 1. Build project
 
 ### Building from command line
@@ -15,10 +15,10 @@ This builds and runs an exported impulse locally on your machine. See the docume
 1. Install [SLC CLI Tools](https://www.silabs.com/documents/public/user-guides/ug520-software-project-generation-configuration-with-slc-cli.pdf)
 1. Install [Simplicity Commander](https://community.silabs.com/s/article/simplicity-commander?language=en_US)
 1. Install [Gecko SDK 4.x](https://github.com/SiliconLabs/gecko_sdk) and configure it in the SLC CLI
-1. Generate Makefile for your board (for example BRD4166A - Thunderboard Sense 2)
+1. Generate Makefile for your board (for example BRD2601B - EFR32xG24 Dev Kit)
 
     ```
-    slc generate inference-example.slcp -cp -np --toolchain=gcc --output-type=makefile --with=brd4166a
+    slc generate inference-example.slcp -cp -np --toolchain=gcc --output-type=makefile --with=brd2601b
     ```
 
 1. Compile
@@ -88,4 +88,3 @@ This builds and runs an exported impulse locally on your machine. See the docume
  ## License
 
  [Appache License v2.0](https://www.apache.org/licenses/LICENSE-2.0)
- 
