@@ -7,12 +7,12 @@ category: Example|Standalone Inference
 package: platform
 quality: production
 source:
-- {path: src/main.cpp, folder: src}
-- {path: src/app.cpp, folder: src}
+- {path: src/main.cpp}
+- {path: src/app.cpp}
 include:
 - path: src
   file_list:
-  - {path: app.h, folder: src}
+  - {path: app.h}
 sdk: {id: gecko_sdk, version: 4.0.2}
 toolchain_settings:
 - {value: -Wno-unused-parameter, option: gcc_compiler_option}
@@ -24,7 +24,7 @@ component:
 - {id: toolchain_gcc}
 - {id: emlib_system}
 - {id: component_catalog}
-- {id: custom_edge_impulse_library}
+- {from: edge_impulse_extension, id: edge_impulse_model}
 - {id: sl_system}
 configuration:
 - {name: SL_STACK_SIZE, value: '8192'}
@@ -36,6 +36,6 @@ configuration:
   name: SL_IOSTREAM_USART_VCOM_CONVERT_BY_DEFAULT_LF_TO_CRLF
   value: '1'
 ui_hints: {}
-component_path:
-- {path: ei-model}
+sdk_extension:
+- {id: edge_impulse_extension, version: 1.0.0}
 

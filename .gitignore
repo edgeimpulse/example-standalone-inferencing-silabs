@@ -7,3 +7,6 @@ gecko_sdk_*/
 *.emProject
 *.project.mak
 *.pintool
+edge_impulse_extension_*/
+vscode.conf
+.projectlinkstore
