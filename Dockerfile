@@ -38,6 +38,8 @@ RUN wget https://cdn.edgeimpulse.com/build-system/slc_cli_linux.zip -q && \
 
 ENV PATH="/slc_cli:${PATH}"
 
+WORKDIR /app
+
 RUN slc configuration --sdk /gecko_sdk/ && \
     slc signature trust --sdk /gecko_sdk/ && \
     slc configuration --gcc-toolchain /gcc-arm-none-eabi-9-2019-q4-major
